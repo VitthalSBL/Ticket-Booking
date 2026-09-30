@@ -1,9 +1,5 @@
-databases:
-  - name: tickethub-db
-    plan: free
-    databaseName: tickethub
-    user: tickethub
-
+# No database block: uses SQLite (data resets on each restart/redeploy on Render free plan).
+# To get permanent data later, create a Postgres DB and set DATABASE_URL in the service env vars.
 services:
   - type: web
     name: tickethub
@@ -15,10 +11,6 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
-      - key: DATABASE_URL
-        fromDatabase:
-          name: tickethub-db
-          property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: COOKIE_SECURE
